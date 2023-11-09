@@ -1,0 +1,48 @@
+version: '3'
+
+networks:
+  passenger_test:
+
+services:
+  nginx-service:
+    image: nginx:stable-alpine
+    container_name: passenger-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/project
+      - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php82-service
+    networks:
+      - passenger_test
+
+  php82-service:
+    build:
+      context: .
+      dockerfile: ./.docker/php/Dockerfile
+    container_name: passenger-php
+    restart: on-failure
+    depends_on:
+      - mysql-service
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./:/var/www/project
+    networks:
+      - passenger_test
+
+  mysql-service:
+    image: mysql:8.0
+    container_name: passenger-mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - "4306:3306"
+    volumes:
+      - ./var/data/mysql:/var/lib/mysql
+    networks:
+      - passenger_test
