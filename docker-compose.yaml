@@ -25,6 +25,7 @@ services:
     restart: on-failure
     depends_on:
       - mysql-service
+      - postgres-service
     ports:
       - "9000:9000"
     volumes:
@@ -44,5 +45,49 @@ services:
       - "4306:3306"
     volumes:
       - ./var/data/mysql:/var/lib/mysql
+    networks:
+      - passenger_test
+
+  postgres-service:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: passenger-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-passenger}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+      POSTGRES_USER: ${POSTGRES_USER:-root}
+    ports:
+      - '6432:5432'
+    volumes:
+      - ./var/data/psql:/var/lib/postgresql/data:rw
+    networks:
+      - passenger_test
+
+  messenger-consumer-1:
+    build:
+      context: .
+      dockerfile: ./.docker/php-cli/Dockerfile
+    container_name: messenger-consumer-1
+    restart: on-failure
+    command: php -dmemory_limit=-1 bin/console messenger:consume -vv
+    volumes:
+      - ./:/var/www/project
+    depends_on:
+      - php82-service
+      - postgres-service
+    networks:
+      - passenger_test
+
+  messenger-consumer-2:
+    build:
+      context: .
+      dockerfile: ./.docker/php-cli/Dockerfile
+    container_name: messenger-consumer-2
+    restart: on-failure
+    command: php -dmemory_limit=-1 bin/console messenger:consume -vv
+    volumes:
+      - ./:/var/www/project
+    depends_on:
+      - php82-service
+      - postgres-service
     networks:
       - passenger_test
