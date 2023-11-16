@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Service\Persistence;
+namespace App\Service\Persistence\SQL;
 
-use App\DTO\Model\Postcode\PostcodeDTO;
+use App\Service\Persistence\BulkInsertServiceInterface;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 
-class BulkInsertService implements BulkInsertServiceInterface
+readonly class BulkInsertService implements BulkInsertServiceInterface
 {
-    public function __construct(private readonly Connection $connection)
+    public function __construct(private Connection $connection)
     {
     }
 

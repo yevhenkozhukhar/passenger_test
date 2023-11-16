@@ -39,6 +39,8 @@ final readonly class GetPostcodesByCodeQuery implements GetPostcodesByCodeInterf
                 $row['eastings'],
                 $row['northings'],
                 $row['country_code'],
+                $row['latitude'],
+                $row['longitude'],
             );
         }
 

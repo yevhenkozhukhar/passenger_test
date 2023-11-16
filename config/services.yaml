@@ -29,3 +29,10 @@ services:
 
     App\Query\Postcode\GetPostcodesByCoordinatesInterface:
         class: App\Query\Postcode\Doctrine\SQL\GetPostcodesByCoordinatesQuery
+
+when@test:
+    services:
+        App\Service\File\LoaderInterface:
+            class: App\Service\File\FileLoaderService
+            public: true
+            autowire: true

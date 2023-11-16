@@ -8,7 +8,7 @@ use App\Query\Postcode\GetPostcodesByCoordinatesInterface;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 
-readonly class GetPostcodesByCoordinatesPostGISQuery implements GetPostcodesByCoordinatesInterface
+final readonly class GetPostcodesByCoordinatesPostGISQuery implements GetPostcodesByCoordinatesInterface
 {
     public function __construct(private Connection $connection)
     {
@@ -69,6 +69,8 @@ readonly class GetPostcodesByCoordinatesPostGISQuery implements GetPostcodesByCo
                 $row['eastings'],
                 $row['northings'],
                 $row['country_code'],
+                $row['latitude'],
+                $row['longitude'],
             );
         }
 

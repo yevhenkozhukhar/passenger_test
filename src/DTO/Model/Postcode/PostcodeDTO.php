@@ -55,6 +55,8 @@ readonly class PostcodeDTO implements JsonSerializable
             'eastings' => $this->eastings,
             'northings' => $this->northings,
             'countryCode' => $this->countryCode,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
         ];
     }
 }

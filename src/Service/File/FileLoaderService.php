@@ -2,7 +2,7 @@
 
 namespace App\Service\File;
 
-use App\Exception\File\FileLoadException;
+use App\Service\File\Exception\FileLoadException;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;

@@ -26,14 +26,8 @@ class PostcodeController extends AbstractController
     #[Route(path: '/postcodes', name: 'api_postcode_by_code', methods: ['GET'], format: 'json')]
     public function getPostcodesByCodeAction(
         #[MapQueryString] CodeRequestDTO $codeRequestDTO,
-        PostcodeRepository $postcodeRepository,
         GetPostcodesByCodeInterface $getPostcodesByCode,
     ): Response {
-        $data = $postcodeRepository->getPostcodesByCode(
-            $codeRequestDTO->code(),
-            $codeRequestDTO->page(),
-            $codeRequestDTO->perPage()
-        );
         $data = $getPostcodesByCode->execute($codeRequestDTO);
 
         return $this->json(['status' => ResponseStatus::SUCCESS, 'data' => $data]);

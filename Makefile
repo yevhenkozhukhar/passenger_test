@@ -9,6 +9,16 @@ down:
 install:
 	$(PHP) composer install
 
+deps:
+	docker-compose up -d
+	@$(MAKE) install
+	$(PHP) bin/console messenger:setup-transports
+	$(PHP) bin/console messenger:setup-transports --env=test
+	$(PHP) bin/console doctrine:database:create --if-not-exists
+	$(PHP) bin/console doctrine:database:create --if-not-exists --env=test
+	$(PHP) bin/console doctrine:migrations:migrate
+	$(PHP) bin/console doctrine:migrations:migrate --env=test
+
 db:
 	$(PHP) bin/console doctrine:database:create --if-not-exists
 
@@ -26,3 +36,9 @@ consume:
 
 setup-consumer:
 	$(PHP) bin/console messenger:setup-transports
+
+import:
+	make import
+
+unit:
+	$(PHP) ./vendor/bin/phpunit

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exception\File;
+namespace App\Service\File\Exception;
 
 use Exception;
 

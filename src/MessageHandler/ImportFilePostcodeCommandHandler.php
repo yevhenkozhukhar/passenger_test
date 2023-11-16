@@ -21,7 +21,7 @@ final readonly class ImportFilePostcodeCommandHandler
     public function __invoke(ImportFilePostcodeCommand $message): void
     {
         $csvFileReader = new CsvFileReader();
-        $data = $csvFileReader->readCsvFile($message->filename(), 1);
+        $data = $csvFileReader->readCsvFile($message->filename());
         $dataPersistence = [];
         foreach ($data as $item) {
             $dataPersistence[] = new PostcodeDTO(
