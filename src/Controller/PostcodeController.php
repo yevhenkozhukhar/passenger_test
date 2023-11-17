@@ -6,7 +6,6 @@ namespace App\Controller;
 
 use App\DTO\Request\Postcode\CodeRequestDTO;
 use App\DTO\Request\Postcode\CoordsRequestDTO;
-use App\Form\Trait\FormErrorsTransformerTrait;
 use App\Infrastructure\Helper\ApiResponseHelper;
 use App\Infrastructure\Resolver\RequestValidateValueResolver;
 use App\Query\Postcode\GetPostcodesByCodeInterface;
@@ -19,8 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/api/v1')]
 class PostcodeController extends AbstractController
 {
-    use FormErrorsTransformerTrait;
-
     #[Route(path: '/postcodes/by-code', name: 'api_postcode_by_code', methods: ['GET'], format: 'json')]
     public function getPostcodesByCodeAction(
         #[MapQueryString(resolver: RequestValidateValueResolver::class)] CodeRequestDTO $codeRequestDTO,

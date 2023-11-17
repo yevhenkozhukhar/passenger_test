@@ -29,7 +29,7 @@ php:
 	docker-compose exec php82-service bash
 
 psql:
-	docker-compose exec postgres-service psql -U root -W -d passenger_db2
+	docker-compose exec postgres-service psql -U root -W -d passenger
 
 consume:
 	$(PHP) php -dmemory_limit=-1 bin/console messenger:consume -vv
