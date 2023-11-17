@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Query\Postcode\Doctrine\PostgreSQL;
 
 use App\DTO\Model\Postcode\PostcodeDTO;
@@ -69,8 +71,8 @@ final readonly class GetPostcodesByCoordinatesPostGISQuery implements GetPostcod
                 $row['eastings'],
                 $row['northings'],
                 $row['country_code'],
-                $row['latitude'],
-                $row['longitude'],
+                (float)$row['latitude'],
+                (float)$row['longitude'],
             );
         }
 

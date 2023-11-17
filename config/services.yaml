@@ -30,6 +30,14 @@ services:
     App\Query\Postcode\GetPostcodesByCoordinatesInterface:
         class: App\Query\Postcode\Doctrine\SQL\GetPostcodesByCoordinatesQuery
 
+    App\Infrastructure\Resolver\QueryRequestResolver:
+        autowire: true
+
+    App\Infrastructure\Resolver\RequestValidateValueResolver:
+        arguments:
+            - '@App\Infrastructure\Resolver\QueryRequestResolver'
+            - '@validator'
+
 when@test:
     services:
         App\Service\File\LoaderInterface:

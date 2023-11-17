@@ -1,16 +1,23 @@
 # Passenger PHP test challenge
 
-# Requirements to project(without docker)
- - PHP
- - PostgreSQL
- - Composer
+# Requirements to project
+
+Using docker:
+ - Docker
+ - Docker Compose
+
+Without docker:
+- PHP 8.2
+- PostgreSQL 16
+- Composer 2
 
 ## Description
 Project import data for postcodes from data-source and gave api endpoints to get this data
 
 Source code consist fully managed docker-container, that makes run services very easy
+
 Description containers:
- - messenger-consumer-1, messenger-consumer-2 - two consumers running async for and handle messages
+ - messenger-consumer-1, messenger-consumer-2 - two consumers running async and handle messages
  - nginx-service - web server 
  - php82-service - main php8.2 running with web-server
  - passenger-postgres - database postgreSQL, save data
@@ -86,17 +93,13 @@ Command for test
 ./vendor/bin/phpunit
 ```
 
-### Project url via docker-compose
+### Project url running with docker-compose 
 ```
 http://localhost:8080
 ```
 
-### Api endpoints
+### Api documentation (Swagger UI)
 
 ```
-http://localhost:8080/api/v1/postcodes
-```
-
-```
-http://localhost:8080/api/v1/postcodes/by-coords
+http://localhost:8080/api/doc
 ```

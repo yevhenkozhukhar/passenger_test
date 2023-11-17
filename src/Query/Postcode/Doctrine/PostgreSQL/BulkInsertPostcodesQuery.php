@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Query\Postcode\Doctrine\PostgreSQL;
 
 use App\DTO\Model\Postcode\PostcodeDTO;
 use App\Query\Postcode\BulkInsertPostcodesInterface;
 use App\Query\Postcode\GetPostCodesListByCodesInterface;
 use App\Service\Persistence\BulkInsertServiceInterface;
-use Doctrine\DBAL\Connection;
 
 final readonly class BulkInsertPostcodesQuery implements BulkInsertPostcodesInterface
 {

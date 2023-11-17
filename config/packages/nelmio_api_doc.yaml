@@ -1,0 +1,121 @@
+nelmio_api_doc:
+  documentation:
+    info:
+      title: Postcodes Api
+      description: This app provides api to work with postcodes data
+      version: 1.0.0
+    paths:
+      /api/v1/postcodes/by-code:
+        get:
+          operationId: PostcodeListByCode
+          summary: Search postcodes by code
+          description: Search postcodes by code start portion match
+          tags:
+            - Postcode
+          parameters:
+            - name: code
+              in: query
+              description: 'Field code for portion search postcodes'
+              required: true
+              schema:
+                type: string
+            - name: page
+              in: query
+              description: 'Result page number'
+              required: false
+              schema:
+                type: integer
+                default: 1
+            - name: perPage
+              in: query
+              description: 'Limit result per page'
+              required: false
+              schema:
+                type: integer
+                default: 100
+          responses:
+            '200':
+              description: successful operation
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Postcode'
+            '400':
+              description: Bad request
+            '422':
+              description: Validation errors
+      /api/v1/postcodes/by-coords:
+        get:
+          operationId: PostcodeListByCoords
+          summary: Search postcodes by coords
+          description: Search postcodes located nearby latitude and longitude coordinates
+          tags:
+            - Postcode
+          parameters:
+            - name: latitude
+              in: query
+              description: 'Latitude coordinate to search postcodes nearby(5 miles range)'
+              required: true
+              schema:
+                type: number
+            - name: longitude
+              in: query
+              description: 'Longitude coordinate to search postcodes nearby(5 miles range)'
+              required: true
+              schema:
+                type: number
+            - name: page
+              in: query
+              description: 'Result page number'
+              required: false
+              schema:
+                type: integer
+                default: 1
+            - name: perPage
+              in: query
+              description: 'Limit result per page'
+              required: false
+              schema:
+                type: integer
+                default: 100
+          responses:
+            '200':
+              description: successful operation
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Postcode'
+            '400':
+              description: Bad request
+            '422':
+              description: Validation errors
+    components:
+      schemas:
+        Postcode:
+          type: object
+          properties:
+            code:
+              type: string
+              example: EH1 1NB
+            eastings:
+              type: integer
+              format: int32
+              example: 326057
+            northings:
+              type: integer
+              format: int32
+              example: 673593
+            countryCode:
+              type: string
+              example: S92000003
+            latitude:
+              type: float
+              example: 55.94965784415435
+            longitude:
+              type: float
+              example: -3.185629671658287
+
+
+  areas: # to filter documented areas
+    path_patterns:
+      - ^/api/(?!doc(?:\.json)?$)

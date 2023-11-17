@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DTO\Request\Postcode;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -10,9 +12,9 @@ readonly class CoordsRequestDTO
 
     public function __construct(
         #[Assert\NotBlank]
-        public string $latitude,
+        public ?string $latitude,
         #[Assert\NotBlank]
-        public string $longitude,
+        public ?string $longitude,
         #[Assert\Range(min: 1)]
         public int $page = 1,
         #[Assert\Range(min: 1)]

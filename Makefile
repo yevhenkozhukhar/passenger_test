@@ -41,4 +41,4 @@ import:
 	make import
 
 unit:
-	$(PHP) ./vendor/bin/phpunit
+	$(PHP) ./vendor/bin/phpunit $(args)

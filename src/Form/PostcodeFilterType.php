@@ -16,7 +16,6 @@ class PostcodeFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->setMethod('GET');
         $builder
             ->add('code', TextType::class, [
                 'constraints' => [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Query\Postcode\Doctrine\SQL;
 
 use App\DTO\Model\Postcode\PostcodeDTO;
@@ -23,7 +25,7 @@ final readonly class GetPostcodesByCodeQuery implements GetPostcodesByCodeInterf
         $queryResult = $this->connection->executeQuery(
             $sql,
             [
-                'code' => $codeRequestDTO->code() . '%',
+                'code' => strtoupper($codeRequestDTO->code()) . '%',
                 'limit' => $codeRequestDTO->perPage(),
                 'offset_value' => $codeRequestDTO->perPage() * ($codeRequestDTO->page() -1),
             ],
@@ -39,8 +41,8 @@ final readonly class GetPostcodesByCodeQuery implements GetPostcodesByCodeInterf
                 $row['eastings'],
                 $row['northings'],
                 $row['country_code'],
-                $row['latitude'],
-                $row['longitude'],
+                (float)$row['latitude'],
+                (float)$row['longitude'],
             );
         }
 
