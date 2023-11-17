@@ -69,6 +69,12 @@ docker-compose exec php82-service bin/console doctrine:migrations:migrate
 docker-compose exec php82-service bin/console doctrine:migrations:migrate --env=test
 ```
 
+### Start or down project make command(alternative to docker-compose)
+
+`make start` - same as `docker-compose up -d` - start containers
+
+`make down` - same as `docker-compose down` - down containers
+
 ### Import postcode data
 
 Command responsible for import data
@@ -79,6 +85,11 @@ bin/console postcodes:load
 Running command throw make:
 ```
 make import
+```
+
+Command for asynchronously import data by the messenger(if you are running app throw included docker-compose it's already there)
+```
+php dmemory_limit=1 bin/console messenger:consume -vv
 ```
 
 ### Unit tests

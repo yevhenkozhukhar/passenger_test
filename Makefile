@@ -38,7 +38,7 @@ setup-consumer:
 	$(PHP) bin/console messenger:setup-transports
 
 import:
-	make import
+	$(PHP) bin/console postcodes:load
 
 unit:
 	$(PHP) ./vendor/bin/phpunit $(args)

@@ -33,21 +33,6 @@ services:
     networks:
       - passenger_test
 
-  mysql-service:
-    image: mysql:8.0
-    container_name: passenger-mysql
-    restart: unless-stopped
-    environment:
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=password
-    ports:
-      - "4306:3306"
-    volumes:
-      - ./var/data/mysql:/var/lib/mysql
-    networks:
-      - passenger_test
-
   postgres-service:
     image: postgis/postgis:16-3.4-alpine
     container_name: passenger-postgres
