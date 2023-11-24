@@ -24,10 +24,9 @@ services:
     container_name: passenger-php
     restart: on-failure
     depends_on:
-      - mysql-service
       - postgres-service
     ports:
-      - "9000:9000"
+      - "9000"
     volumes:
       - ./:/var/www/project
     networks:
@@ -47,13 +46,24 @@ services:
     networks:
       - passenger_test
 
+  rabbitmq-service: # The RabbitMQ container.
+    image: "rabbitmq:3.12-management-alpine"
+    container_name: passenger-rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    volumes:
+      - ./var/data/rabbitmq:/var/lib/rabbitmq
+    networks:
+      - passenger_test
+
   messenger-consumer-1:
     build:
       context: .
       dockerfile: ./.docker/php-cli/Dockerfile
     container_name: messenger-consumer-1
-    restart: on-failure
-    command: php -dmemory_limit=-1 bin/console messenger:consume -vv
+    restart: always
+    command: php -dmemory_limit=-1 bin/console messenger:consume async -vv
     volumes:
       - ./:/var/www/project
     depends_on:
@@ -67,8 +77,8 @@ services:
       context: .
       dockerfile: ./.docker/php-cli/Dockerfile
     container_name: messenger-consumer-2
-    restart: on-failure
-    command: php -dmemory_limit=-1 bin/console messenger:consume -vv
+    restart: always
+    command: php -dmemory_limit=-1 bin/console messenger:consume async -vv
     volumes:
       - ./:/var/www/project
     depends_on:

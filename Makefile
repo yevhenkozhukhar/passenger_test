@@ -32,7 +32,7 @@ psql:
 	docker-compose exec postgres-service psql -U root -W -d passenger
 
 consume:
-	$(PHP) php -dmemory_limit=-1 bin/console messenger:consume -vv
+	$(PHP) php -dmemory_limit=-1 bin/console messenger:consume async -vv
 
 setup-consumer:
 	$(PHP) bin/console messenger:setup-transports

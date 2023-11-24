@@ -5,9 +5,22 @@ framework:
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
-             async: '%env(MESSENGER_TRANSPORT_DSN)%'
-            # failed: 'doctrine://default?queue_name=failed'
-            # sync: 'sync://'
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%?auto_setup=true'
+                options:
+                    exchange:
+                        name: x_pass_async
+                        type: direct
+                    queues:
+                        q_pass_async: ~
+            failed:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: pass_failed.topic
+                        type: topic
+
+            sync: 'sync://'
 
         routing:
             # Route your messages to the transports
